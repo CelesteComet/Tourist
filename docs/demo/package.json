@@ -4,7 +4,7 @@
   "main": "index.js",
   "homepage": ".",
   "scripts": {
-    "start": "webpack --watch",
+    
     "deploy": "npm run build&&gh-pages -d build",
     "webpack": "webpack --watch"
   },
