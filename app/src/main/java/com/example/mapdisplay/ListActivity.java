@@ -50,77 +50,183 @@ public class ListActivity extends AppCompatActivity {
 
             // network request to get list of stuff
 
-            String url = "https://api.tomtom.com/search/2/searchAlongRoute/pizza.json?key=Ja9sedGJlJJHgfWROHBWF4Qev7QYVeeV&maxDetourTime=1000";
-
-            // grab textView
-            mTextView = (TextView) findViewById(R.id.message);
-
-
             // Instantiate the RequestQueue.
-            RequestQueue queue = Volley.newRequestQueue(this);
+            final RequestQueue queue = Volley.newRequestQueue(this);
 
-            Map<String, ArrayList> routeObject = new HashMap<String, ArrayList>();
-            routeObject.put("points", new ArrayList());
+        //GET to search
 
+            String userQuery = "pizza";
+            //searches user query, limit 1
+            String searchUrl = "https://api.tomtom.com/search/2/search/" + userQuery + ".json?key=Ja9sedGJlJJHgfWROHBWF4Qev7QYVeeV&limit=1";
 
-
-            String myString = "{'route':{'points':[{'lat': 37.7524152343544,'lon':-122.43576049804686},{'lat': 37.70660472542312,'lon':-122.43301391601562},{'lat': 37.712059855877314,'lon':-122.36434936523438},{'lat':37.75350561243041,'lon':-122.37396240234374}]}}";
-
-
-            JSONObject userInputtedPOIs;
-            String whatever = "";
-
-            try {
-                userInputtedPOIs = new JSONObject(myString);
-                whatever = userInputtedPOIs.toString();
-
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-
-            final String requestBody = whatever;
-
-
-
-            // Request a string response from the provided URL.
-            StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
+        // Request a string response from the provided URL.
+            StringRequest searchRequest = new StringRequest(Request.Method.GET, searchUrl,
 
                     // Create a json obj out of request data
                     new Response.Listener<String>() {
                         @Override
-                        public void onResponse(String json) {
+                        public void onResponse(String searchRes) {
                             // Display the first 500 characters of the response string.
                             try {
-                                JSONObject obj = new JSONObject(json);
+                                JSONObject searchResJson = new JSONObject(searchRes);
 
-                                Log.d("My App", obj.toString());
+                                Log.d("My App", searchResJson.toString());
+
+                                //POST to searchAlongRoute
+
+
+
+                                String alongRouteUrl = "https://api.tomtom.com/search/2/searchAlongRoute/pizza.json?key=Ja9sedGJlJJHgfWROHBWF4Qev7QYVeeV&maxDetourTime=1000";
+
+                                // grab textView
+                                mTextView = (TextView) findViewById(R.id.message);
+
+
+                                String myString = "{'route':{'points':[{'lat': 37.7524152343544,'lon':-122.43576049804686},{'lat': 37.70660472542312,'lon':-122.43301391601562},{'lat': 37.712059855877314,'lon':-122.36434936523438},{'lat':37.75350561243041,'lon':-122.37396240234374}]}}";
+
+
+                                JSONObject userInputtedPOIs;
+                                String whatever = "";
+
+                                try {
+                                    userInputtedPOIs = new JSONObject(myString);
+                                    whatever = userInputtedPOIs.toString();
+
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+
+                                final String requestBody = whatever;
+
+
+
+                                // Request a string response from the provided URL.
+                                StringRequest stringRequest = new StringRequest(Request.Method.POST, alongRouteUrl,
+
+                                        // Create a json obj out of request data
+                                        new Response.Listener<String>() {
+                                            @Override
+                                            public void onResponse(String json) {
+                                                // Display the first 500 characters of the response string.
+                                                try {
+                                                    JSONObject obj = new JSONObject(json);
+
+                                                    Log.d("My App", obj.toString());
+
+                                                } catch (Throwable t) {
+                                                    Log.e("My App", "Could not parse malformed JSON: \"" + json + "\"");
+                                                }
+                                            }
+                                        }, new Response.ErrorListener() {
+                                    @Override
+                                    public void onErrorResponse(VolleyError error) {
+                                        Log.e("My App", "Error encountered ");
+                                    }
+                                } ) {
+
+                                    @Override
+                                    public byte[] getBody() throws AuthFailureError {
+                                        try {
+                                            return requestBody == null ? null : requestBody.getBytes("utf-8");
+                                        } catch (UnsupportedEncodingException uee) {
+                                            VolleyLog.wtf("Unsupported Encoding while trying to get the bytes of %s using %s", requestBody, "utf-8");
+                                            return null;
+                                        }
+                                    }
+                                };
+
+
+
+                                // Add the request to the RequestQueue.
+                                queue.add(stringRequest);
+
+
+
 
                             } catch (Throwable t) {
-                                Log.e("My App", "Could not parse malformed JSON: \"" + json + "\"");
+                                Log.e("My App", "Could not parse malformed JSON: \"" + searchRes + "\"");
                             }
                         }
                     }, new Response.ErrorListener() {
-                        @Override
-                        public void onErrorResponse(VolleyError error) {
-                            Log.e("My App", "Error encountered ");
-                        }
-            } ) {
-
                 @Override
-                public byte[] getBody() throws AuthFailureError {
-                    try {
-                        return requestBody == null ? null : requestBody.getBytes("utf-8");
-                    } catch (UnsupportedEncodingException uee) {
-                        VolleyLog.wtf("Unsupported Encoding while trying to get the bytes of %s using %s", requestBody, "utf-8");
-                        return null;
-                    }
+                public void onErrorResponse(VolleyError error) {
+                    Log.e("My App", "Error encountered ");
                 }
-            };
+            } );
+
+            queue.add(searchRequest);
 
 
-
-            // Add the request to the RequestQueue.
-            queue.add(stringRequest);
+//        //POST to searchAlongRoute
+//
+//            String alongRouteUrl = "https://api.tomtom.com/search/2/searchAlongRoute/pizza.json?key=Ja9sedGJlJJHgfWROHBWF4Qev7QYVeeV&maxDetourTime=1000";
+//
+//            // grab textView
+//            mTextView = (TextView) findViewById(R.id.message);
+//
+//
+////            Map<String, ArrayList> routeObject = new HashMap<String, ArrayList>();
+////            routeObject.put("points", new ArrayList());
+//
+//
+//
+//            String myString = "{'route':{'points':[{'lat': 37.7524152343544,'lon':-122.43576049804686},{'lat': 37.70660472542312,'lon':-122.43301391601562},{'lat': 37.712059855877314,'lon':-122.36434936523438},{'lat':37.75350561243041,'lon':-122.37396240234374}]}}";
+//
+//
+//            JSONObject userInputtedPOIs;
+//            String whatever = "";
+//
+//            try {
+//                userInputtedPOIs = new JSONObject(myString);
+//                whatever = userInputtedPOIs.toString();
+//
+//            } catch (JSONException e) {
+//                e.printStackTrace();
+//            }
+//
+//            final String requestBody = whatever;
+//
+//
+//
+//            // Request a string response from the provided URL.
+//            StringRequest stringRequest = new StringRequest(Request.Method.POST, alongRouteUrl,
+//
+//                    // Create a json obj out of request data
+//                    new Response.Listener<String>() {
+//                        @Override
+//                        public void onResponse(String json) {
+//                            // Display the first 500 characters of the response string.
+//                            try {
+//                                JSONObject obj = new JSONObject(json);
+//
+//                                Log.d("My App", obj.toString());
+//
+//                            } catch (Throwable t) {
+//                                Log.e("My App", "Could not parse malformed JSON: \"" + json + "\"");
+//                            }
+//                        }
+//                    }, new Response.ErrorListener() {
+//                        @Override
+//                        public void onErrorResponse(VolleyError error) {
+//                            Log.e("My App", "Error encountered ");
+//                        }
+//            } ) {
+//
+//                @Override
+//                public byte[] getBody() throws AuthFailureError {
+//                    try {
+//                        return requestBody == null ? null : requestBody.getBytes("utf-8");
+//                    } catch (UnsupportedEncodingException uee) {
+//                        VolleyLog.wtf("Unsupported Encoding while trying to get the bytes of %s using %s", requestBody, "utf-8");
+//                        return null;
+//                    }
+//                }
+//            };
+//
+//
+//
+//            // Add the request to the RequestQueue.
+//            queue.add(stringRequest);
 
     //        try
     //        {
