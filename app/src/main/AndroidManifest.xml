@@ -28,6 +28,7 @@
             android:value="Ja9sedGJlJJHgfWROHBWF4Qev7QYVeeV" />
 
         <activity android:name=".OptionsActivity"></activity>
+        <activity android:name=".SearchActivity"></activity>
     </application>
 
 </manifest>

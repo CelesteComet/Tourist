@@ -15,9 +15,9 @@ class MainActivity : AppCompatActivity() {
         Timber.plant(Timber.DebugTree())
         mapView = findViewById<MapView>(R.id.map_view);
         mapView.addOnMapReadyCallback { tomtomMap ->
-            val amsterdam = LatLng(52.36,4.88)
-            tomtomMap.centerOn(amsterdam, 12)
-            tomtomMap.addMarker(MarkerBuilder(amsterdam))
+            val san = LatLng(37.78,-122.39)
+            tomtomMap.centerOn(san, 12)
+            tomtomMap.addMarker(MarkerBuilder(san))
         }
     }
 
