@@ -1,5 +1,7 @@
 package com.example.mapdisplay;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -11,6 +13,7 @@ public class SearchActivity extends AppCompatActivity {
 
     private TextView mTextMessage;
 
+
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -19,12 +22,16 @@ public class SearchActivity extends AppCompatActivity {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
                     mTextMessage.setText(R.string.title_home);
+                    Intent goToMainActivity = new Intent(getApplicationContext(), MainActivity.class);
+                    startActivity(goToMainActivity);
                     return true;
                 case R.id.navigation_dashboard:
-                    mTextMessage.setText(R.string.title_dashboard);
+                    Intent gotToOptionsActivity = new Intent(getApplicationContext(), OptionsActivity.class);
+                    startActivity(gotToOptionsActivity);
                     return true;
                 case R.id.navigation_notifications:
-                    mTextMessage.setText(R.string.title_notifications);
+                    Intent goToSearchActivity = new Intent(getApplicationContext(), SearchActivity.class);
+                    startActivity(goToSearchActivity);
                     return true;
             }
             return false;
