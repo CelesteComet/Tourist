@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.mapdisplay">
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -14,10 +15,19 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-    </activity>
-        <meta-data android:name="OnlineMaps.Key" android:value="Ja9sedGJlJJHgfWROHBWF4Qev7QYVeeV" />
-        <meta-data android:name="OnlineSearch.Key" android:value="Ja9sedGJlJJHgfWROHBWF4Qev7QYVeeV" />
-        <meta-data android:name="OnlineRouting.Key" android:value="Ja9sedGJlJJHgfWROHBWF4Qev7QYVeeV" />
+        </activity>
+
+        <meta-data
+            android:name="OnlineMaps.Key"
+            android:value="Ja9sedGJlJJHgfWROHBWF4Qev7QYVeeV" />
+        <meta-data
+            android:name="OnlineSearch.Key"
+            android:value="Ja9sedGJlJJHgfWROHBWF4Qev7QYVeeV" />
+        <meta-data
+            android:name="OnlineRouting.Key"
+            android:value="Ja9sedGJlJJHgfWROHBWF4Qev7QYVeeV" />
+
+        <activity android:name=".OptionsActivity"></activity>
     </application>
 
 </manifest>
