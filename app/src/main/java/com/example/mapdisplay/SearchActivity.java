@@ -21,9 +21,8 @@ public class SearchActivity extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-                    mTextMessage.setText(R.string.title_home);
-                    Intent goToMainActivity = new Intent(getApplicationContext(), MainActivity.class);
-                    startActivity(goToMainActivity);
+                    Intent goToMapActivity = new Intent(getApplicationContext(), MapActivity.class);
+                    startActivity(goToMapActivity);
                     return true;
                 case R.id.navigation_dashboard:
                     Intent gotToOptionsActivity = new Intent(getApplicationContext(), OptionsActivity.class);
@@ -43,7 +42,6 @@ public class SearchActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
-        mTextMessage = (TextView) findViewById(R.id.message);
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     }

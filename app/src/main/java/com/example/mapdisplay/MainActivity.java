@@ -23,8 +23,8 @@ public class MainActivity extends AppCompatActivity {
                     startActivity(goToMainActivity);
                     return true;
                 case R.id.navigation_dashboard:
-                    Intent gotToOptionsActivity = new Intent(getApplicationContext(), OptionsActivity.class);
-                    startActivity(gotToOptionsActivity);
+                    Intent goToListActivity = new Intent(getApplicationContext(), ListActivity.class);
+                    startActivity(goToListActivity);
                     return true;
                 case R.id.navigation_notifications:
                     Intent goToSearchActivity = new Intent(getApplicationContext(), SearchActivity.class);
@@ -40,7 +40,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mTextMessage = (TextView) findViewById(R.id.message);
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     }

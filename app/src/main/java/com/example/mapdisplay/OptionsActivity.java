@@ -24,8 +24,8 @@ public class OptionsActivity extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-                    Intent goToMainActivity = new Intent(getApplicationContext(), MainActivity.class);
-                    startActivity(goToMainActivity);
+                    Intent goToMapActivity = new Intent(getApplicationContext(), MapActivity.class);
+                    startActivity(goToMapActivity);
                     return true;
                 case R.id.navigation_dashboard:
                     Intent gotToOptionsActivity = new Intent(getApplicationContext(), OptionsActivity.class);
