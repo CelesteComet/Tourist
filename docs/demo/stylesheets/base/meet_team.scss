@@ -1,0 +1,66 @@
+.team-container{
+  display: flex;
+  flex-direction: column;
+  height: auto;
+  width: 100%;
+  margin-bottom: 25px;
+}
+
+.h1-header{
+  font-size: 44px;
+    top: 0px;
+    margin: 0 auto;
+    margin-top: 50px;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 15px;
+}
+
+
+.grid{
+  margin: 0 auto;
+  // border: 1px solid black;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  flex-wrap: wrap;
+
+}
+
+
+.team-pic{
+  height: 250px;
+  width: 250px;
+  border-radius: 50%;
+}
+
+.person-detail{
+  display: flex;
+  // justify-content: center;
+  flex-direction: column;
+
+}
+
+.h3-person-detail{
+  margin: 0 auto;
+}
+
+.team-pic2{
+  height: 50px;
+  width: 50px;
+}
+
+.person-detail-icons{
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+}
+
+
+
+.pic-link > i:first-of-type{
+  text-decoration: none;
+  color: black;
+  padding-right: 10px;
+}
